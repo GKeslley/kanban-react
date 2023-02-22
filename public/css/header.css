@@ -1,0 +1,18 @@
+header {
+  background-color: #2a2a36;
+}
+
+.AddTask {
+  background: #7b4ef7;
+  padding: 0.6em 1em;
+  border-radius: 15px;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.AddTask:hover {
+  background: #5b25f1;
+}

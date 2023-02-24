@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Header = () => {
+const Header = ({ openTask, refBtn }) => {
   const handleClick = () => {
-    //;
+    openTask(true);
   };
 
   return (
@@ -14,7 +14,7 @@ const Header = () => {
     >
       <div className="flex-between container">
         <h2>Laucher</h2>
-        <button onClick={handleClick} className="AddTask">
+        <button ref={refBtn} onClick={handleClick} className="AddTask">
           +Add new task
         </button>
       </div>

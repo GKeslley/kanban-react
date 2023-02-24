@@ -22,6 +22,14 @@ const App = () => {
       <aside className="sidebar">
         <Sidebar />
       </aside>
+
+      {isVisible && (
+        <article className="taskBackground">
+          <div ref={refTask} className="taskForm">
+            <Task />
+          </div>
+        </article>
+      )}
     </>
   );
 };

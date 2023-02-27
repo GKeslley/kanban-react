@@ -1,0 +1,46 @@
+main {
+  background-color: #22222c;
+}
+
+.todo > ul li p {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.todo > ul li p::before {
+  content: '';
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 0.4em;
+}
+
+.todo > ul li:first-child p:before {
+  background: #037ba0;
+}
+
+.todo > ul li:nth-child(2) p:before {
+  background: #7204f0;
+}
+
+.todo > ul li:last-child p:before {
+  background: #028513;
+}
+
+.todo > ul li p {
+  margin-bottom: 1em;
+}
+
+.tasks-content {
+  display: grid;
+  gap: 0.7em 0;
+}
+
+.task {
+  display: grid;
+  background: #2a2a36;
+  padding: 1em 5em 1em 1em;
+  border-radius: 4px;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Componentes/Header';
 import Sidebar from './Componentes/Sidebar';
 import Task from './Componentes/ToDo/Task';
+import ToDo from './Componentes/ToDo/ToDo';
 import useOutsideClick from './Hooks/useOutsideClick';
 
 const App = () => {
@@ -17,6 +18,10 @@ const App = () => {
     <>
       <section style={{ display: 'grid', gridTemplateRows: '0.1fr 1fr' }}>
         <Header openTask={setIsVisible} refBtn={refBtn} />
+
+        <main className="todo" style={{ padding: '1.2rem 0' }}>
+          <ToDo />
+        </main>
       </section>
 
       <aside className="sidebar">

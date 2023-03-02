@@ -1,23 +1,31 @@
 import React from 'react';
 
-const useLocalStorage = () => {
-  const [task, setTask] = React.useState();
-  React.useEffect(() => {
-    const regex = /[[\]]/g;
-    console.log(task);
-    if (task && task.dados.status) {
-      localStorage.setItem(
-        task.dados.status,
-        localStorage.getItem(task.dados.status)
-          ? `[${JSON.stringify(task)}, ${localStorage
-              .getItem(task.dados.status)
-              .replace(regex, '')}]`
-          : `[${JSON.stringify(task)}]`,
-      );
+const useLocalStorage = (value) => {
+  // const [task, setTask] = React.useState();
+  const regex = /[[\]]/g;
+  const [storage, setStorage] = React.useState(() => {
+    if (value) {
+      const key = value.dados.status;
+      const keyStorage = localStorage.getItem(key);
+      return keyStorage ? JSON.parse(keyStorage) : value;
     }
-  }, [task]);
+  });
 
-  return { task, setTask };
+  const setValue = (newValue) => {
+    setStorage(newValue);
+    const lastElements = localStorage.getItem(newValue.dados.status);
+    const keyValue = newValue.dados.status;
+    if (lastElements) {
+      localStorage.setItem(
+        keyValue,
+        `[${JSON.stringify(newValue)}, ${lastElements.replace(regex, '')}]`,
+      );
+    } else {
+      localStorage.setItem(keyValue, `[${JSON.stringify(newValue)}]`);
+    }
+  };
+
+  return [storage, setValue];
 };
 
 export default useLocalStorage;

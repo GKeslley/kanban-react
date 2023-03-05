@@ -1,34 +1,41 @@
 import React from 'react';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 
-const Task = () => {
-  const [generateSubtask, setGenerateSubtask] = React.useState([]);
+const Task = ({ setIsVisible }) => {
   const [id, setId] = React.useState(3);
+
   const [dados, setDados] = React.useState({
     title: '',
     description: '',
     status: '',
   });
+
   const [subtask, setSubtask] = React.useState({
     subtasks: {
       sub1: {
         value: '',
         mark: false,
       },
-      sub2: {
-        value: '',
-        mark: false,
-      },
     },
   });
 
-  const { setTask: setTaskInStorage } = useLocalStorage({});
+  const allSubtasks = [{ ...subtask.subtasks }];
+  const allSubtasksKeys = allSubtasks.map((obj) => Object.keys(obj)).flat(Infinity);
+
+  const splitSubtasks = allSubtasksKeys.map((nameSubtask) => {
+    return { [nameSubtask]: subtask.subtasks[nameSubtask] };
+  });
+
+  const [, setInStorage] = useLocalStorage('');
+
+  const handleSaveDados = (saveTask) => {
+    setInStorage(saveTask);
+  };
 
   const addSubtask = (event) => {
     event.preventDefault();
     setId((prev) => prev + 1);
     const propsObj = { value: '', mark: false };
-    setGenerateSubtask([...generateSubtask, { [`sub${id}`]: propsObj }]);
     setSubtask({ ...subtask }, (subtask['subtasks'][`sub${id}`] = propsObj));
   };
 
@@ -42,8 +49,21 @@ const Task = () => {
     setSubtask({ ...subtask }, (subtask['subtasks'][id]['value'] = value));
   };
 
+  const deletSubtask = ({ target }) => {
+    const deletInput = target.previousElementSibling.id;
+    setSubtask((prevState) => ({
+      ...prevState,
+      subtasks: Object.keys(prevState.subtasks)
+        .filter((key) => key !== deletInput)
+        .reduce((obj, key) => {
+          obj[key] = prevState.subtasks[key];
+          return obj;
+        }, {}),
+    }));
+  };
+
   const setGenerateId = (fullDados) => {
-    const randomNumber = () => Math.floor(Math.random() * 100);
+    const randomNumber = () => Math.floor(Math.random() * 1000);
     for (let i = 0; i < fullDados.length; i++) {
       let id = randomNumber();
       const object = fullDados[i];
@@ -57,13 +77,16 @@ const Task = () => {
   const sendTask = (event) => {
     event.preventDefault();
     const storageName = (name) => JSON.parse(localStorage.getItem(name));
-    setDados({ ...dados });
     let fullDados = [storageName('todo'), storageName('doing'), storageName('done')];
     fullDados = fullDados.filter((element) => element);
     const generateId = setGenerateId(fullDados);
     const id = fullDados.length ? generateId : 1;
-    setTaskInStorage({ id, dados, ...subtask });
+    const task = { id, dados, ...subtask };
+    handleSaveDados(task);
+    setIsVisible(false);
   };
+
+  console.log(splitSubtasks);
 
   return (
     <>
@@ -77,7 +100,7 @@ const Task = () => {
             type="text"
             id="title"
             value={dados.title}
-            placeholder="Ask the teacher about the book"
+            placeholder="Buy steaks tomorrow at the market"
             required
           />
         </div>
@@ -89,44 +112,34 @@ const Task = () => {
             type="text"
             value={dados.description}
             id="description"
-            placeholder="Because the teacher say a book is amazing"
+            placeholder="Next week my friends will visit me"
           />
         </div>
 
         <div>
           <label htmlFor="sub1">Subtasks</label>
           <ul className="subtasks">
-            <li>
-              <input
-                onChange={subtasksChange}
-                type="text"
-                value={subtask.subtasks.sub1.value}
-                id="sub1"
-                placeholder="Take the book"
-              />
-            </li>
+            {splitSubtasks.length
+              ? splitSubtasks.map((obj, i) => {
+                  const nameSubtask = Object.keys(obj)[0];
 
-            <li>
-              <input
-                onChange={subtasksChange}
-                type="text"
-                value={subtask.subtasks.sub2.value}
-                id="sub2"
-                placeholder="Return the book in 30 days"
-              />
-            </li>
+                  return (
+                    <li key={nameSubtask}>
+                      <input
+                        onChange={subtasksChange}
+                        type="text"
+                        value={subtask.subtasks[nameSubtask]['value']}
+                        id={nameSubtask}
+                        placeholder={nameSubtask === 'sub1' ? 'Buy salt' : ''}
+                      />
 
-            {generateSubtask.length
-              ? generateSubtask.map((id, i) => (
-                  <li key={Object.keys(id)[0]}>
-                    <input
-                      onChange={subtasksChange}
-                      type="text"
-                      value={subtask.subtasks[Object.keys(id)[0]]['value']}
-                      id={Object.keys(id)[0]}
-                    />
-                  </li>
-                ))
+                      <span
+                        className="cross-1px ignore-click-outside"
+                        onClick={deletSubtask}
+                      ></span>
+                    </li>
+                  );
+                })
               : ''}
           </ul>
 
@@ -135,13 +148,7 @@ const Task = () => {
 
         <div>
           <label htmlFor="status">Status</label>
-          <select
-            onChange={handleChange}
-            value={dados.status}
-            name="status"
-            id="status"
-            required
-          >
+          <select onChange={handleChange} value={dados.status} name="status" id="status">
             <option value="" disabled>
               Select
             </option>
@@ -152,7 +159,8 @@ const Task = () => {
         </div>
 
         <button
-          type="submit"
+          type="button"
+          disabled={dados.title && dados.status ? false : true}
           onClick={sendTask}
           style={{ background: '#7b4ef7', color: '#fff' }}
         >

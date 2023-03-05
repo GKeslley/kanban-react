@@ -1,16 +1,12 @@
 import React from 'react';
 
-const useOutsideClick = (refTask, refBtn, callback) => {
+const useOutsideClick = (refTask, callback) => {
   React.useEffect(() => {
     const outsideClick = ({ target }) => {
-      if (refBtn.current && refTask.current && target !== refBtn.current) {
-        if (refTask.current && !refTask.current.contains(target)) {
-          callback();
-        }
-      } else if (!refBtn.current) {
-        if (refTask && refTask.current && !refTask.current.contains(target)) {
-          callback();
-        }
+      if (target && target.classList.contains('ignore-click-outside')) return null;
+
+      if (refTask && refTask.current && !refTask.current.contains(target)) {
+        callback();
       }
     };
 
@@ -19,7 +15,7 @@ const useOutsideClick = (refTask, refBtn, callback) => {
     return () => {
       document.documentElement.removeEventListener('click', outsideClick);
     };
-  });
+  }, [refTask, callback]);
 };
 
 export default useOutsideClick;

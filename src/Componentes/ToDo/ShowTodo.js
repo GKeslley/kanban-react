@@ -1,15 +1,26 @@
 import React from 'react';
 import useLocalStorage from '../../Hooks/useLocalStorage';
+import useOutsideClick from '../../Hooks/useOutsideClick';
+import DeleteTask from './DeleteTask';
 
-const ShowTodo = ({ showDados, targetTask, isVisible }) => {
+const ShowTodo = ({ showDados, isVisible, setVisible }) => {
   const { id, dados, subtasks } = showDados;
   const [, setInStorage] = useLocalStorage('');
 
   const [modified, setModified] = React.useState(false);
-  const [updateDados, setUpdateDados] = React.useState();
+  const [updateDados, setUpdateDados] = React.useState(null);
   const [updateTask, setUpdateTask] = React.useState({});
+  const targetTask = React.useRef();
 
   const allStatus = ['todo', 'doing', 'done'];
+
+  const handleOutsideClick = () => {
+    if (isVisible) {
+      setVisible(false);
+    }
+  };
+
+  useOutsideClick(targetTask, handleOutsideClick);
 
   const handleSaveDados = (saveTask) => {
     setInStorage(saveTask);
@@ -66,10 +77,9 @@ const ShowTodo = ({ showDados, targetTask, isVisible }) => {
     }
 
     setModified(false);
-    setUpdateTask();
-    setUpdateDados();
+    setUpdateTask({});
+    setUpdateDados(null);
   }
-
   if (subtasks) {
     const valuesSubtasks = Object.values(subtasks);
     const keysSubtasks = Object.keys(subtasks);
@@ -81,14 +91,24 @@ const ShowTodo = ({ showDados, targetTask, isVisible }) => {
         <article>
           {dados && isVisible && (
             <div className="taskBackground">
-              <div ref={targetTask} className="taskForm viewTask">
-                <p>{dados.title}</p>
+              <div ref={targetTask} className="taskForm viewTask" id={id}>
+                <div className="flex-between">
+                  <p>{dados.title}</p>
+
+                  <DeleteTask
+                    targetTask={targetTask}
+                    setModified={setModified}
+                    status={dados.status}
+                    setVisible={setVisible}
+                  />
+                </div>
+
                 <p>{dados.description}</p>
 
                 <form action="">
                   {valuesSubtasks.length
                     ? valuesSubtasks.map(({ value, mark }, i) => (
-                        <label key={value + i} htmlFor="">
+                        <label key={keysSubtasks[i]}>
                           <input
                             onChange={selectSubtasks}
                             type="checkbox"
@@ -96,20 +116,23 @@ const ShowTodo = ({ showDados, targetTask, isVisible }) => {
                             value={value}
                             checked={mark}
                           />
-                          <span className="styleBox"></span> {value}
+                          <span className="styleBox"></span>
+                          {value}
                         </label>
                       ))
                     : ''}
                 </form>
+
                 <form action="">
                   <select
                     id="taskSelect"
                     onChange={({ target }) => changeStatus(target, { dados })}
                   >
                     <option value={dados.status}>{dados.status}</option>
-                    {allStatus.map((st) => (
-                      <option key={st} value={st}>
-                        {st}
+
+                    {allStatus.map((status) => (
+                      <option key={status} value={status}>
+                        {status}
                       </option>
                     ))}
                   </select>

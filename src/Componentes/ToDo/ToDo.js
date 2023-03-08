@@ -6,14 +6,12 @@ import { GlobalContext } from '../../Hooks/UseContext';
 const ToDo = () => {
   const [showDados, setShowDados] = React.useState('');
   const [isVisible, setVisible] = React.useState(false);
-  const targetTask = React.useRef();
 
   return (
     <>
-      <ShowTodo showDados={showDados} targetTask={targetTask} isVisible={isVisible} />
-      <GlobalContext.Provider
-        value={{ showDados, setShowDados, isVisible, setVisible, targetTask }}
-      >
+      <ShowTodo showDados={showDados} isVisible={isVisible} setVisible={setVisible} />
+
+      <GlobalContext.Provider value={{ showDados, setShowDados, isVisible, setVisible }}>
         <AllTasks />
       </GlobalContext.Provider>
     </>

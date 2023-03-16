@@ -9,15 +9,14 @@ const App = () => {
   const [isVisible, setIsVisible] = React.useState(false);
 
   const refTask = React.useRef();
-  const refBtn = React.useRef();
 
   const handleOutsideClick = () => setIsVisible(false);
-  useOutsideClick(refTask, refBtn, handleOutsideClick);
+  useOutsideClick(refTask, handleOutsideClick);
 
   return (
     <>
       <section style={{ display: 'grid', gridTemplateRows: '0.1fr 1fr' }}>
-        <Header openTask={setIsVisible} refBtn={refBtn} />
+        <Header openTask={setIsVisible} />
 
         <main className="todo" style={{ padding: '1.2rem 0' }}>
           <ToDo />
@@ -31,7 +30,7 @@ const App = () => {
       {isVisible && (
         <article className="taskBackground">
           <div ref={refTask} className="taskForm">
-            <Task />
+            <Task setIsVisible={setIsVisible} />
           </div>
         </article>
       )}

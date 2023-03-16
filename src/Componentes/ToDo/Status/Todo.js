@@ -1,13 +1,12 @@
 import React from 'react';
-import useOutsideClick from '../../../Hooks/useOutsideClick';
-// import useLocalStorage from '../useLocalStorage';
 import GlobalContext from '../../../Hooks/UseContext';
 
 const Todo = ({ status }) => {
   const global = React.useContext(GlobalContext);
 
-  const objs = localStorage.getItem(status) ? localStorage.getItem(status) : [];
-  const dados = objs.length ? JSON.parse(objs) : [];
+  const dados = localStorage.getItem(status)
+    ? JSON.parse(localStorage.getItem(status))
+    : [];
 
   const handleClick = ({ id, dados, subtasks }) => {
     global.setShowDados({ id, dados, subtasks });
@@ -16,13 +15,6 @@ const Todo = ({ status }) => {
     }, 10);
   };
 
-  const handleOutsideClick = () => {
-    if (global.isVisible) {
-      global.setVisible(false);
-    }
-  };
-
-  useOutsideClick(global.targetTask, false, handleOutsideClick);
   if (!dados.length) return null;
   return (
     <>

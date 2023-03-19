@@ -1,37 +1,45 @@
 import React from 'react';
 import GlobalContext from '../../../Hooks/UseContext';
+import { produce } from 'immer';
+import Card from '../Card';
 
-const Todo = ({ status }) => {
+const Todo = ({ status, listIndex }) => {
   const global = React.useContext(GlobalContext);
+  const [list, setList] = React.useState(false);
 
-  const dados = localStorage.getItem(status)
-    ? JSON.parse(localStorage.getItem(status))
-    : [];
+  const dados = { [status]: JSON.parse(localStorage.getItem(status)) };
 
-  const handleClick = ({ id, dados, subtasks }) => {
-    global.setShowDados({ id, dados, subtasks });
-    setTimeout(() => {
-      global.setVisible(true);
-    }, 10);
+  const move = (from, to, statusTargetMove) => {
+    const statusTarget = JSON.parse(localStorage.getItem(statusTargetMove));
+    setList(
+      produce(statusTarget, (draft) => {
+        const dragged = draft[from];
+        draft.splice(from, 1);
+        draft.splice(to, 0, dragged);
+      }),
+    );
   };
 
-  if (!dados.length) return null;
+  if (list) {
+    localStorage.setItem(status, JSON.stringify(list));
+    setList(false);
+  }
+
+  if (!dados[status]) return null;
   return (
     <>
-      {dados.length && (
+      {dados[status].length && (
         <div className="tasks-content">
-          {dados.map(({ id, dados, subtasks }, i) => (
-            <div
-              className="task"
-              onClick={() => handleClick({ id, dados, subtasks })}
-              key={i}
-            >
-              <span>{dados.title}</span>
-              <span>
-                {subtasks ? Object.values(subtasks).filter(({ mark }) => mark).length : 0}{' '}
-                of {subtasks ? Object.keys(subtasks).length : 0} subtasks
-              </span>
-            </div>
+          {dados[status].map(({ id, dados, subtasks }, index) => (
+            <Card
+              key={id}
+              card={{ dados, id, subtasks }}
+              index={index}
+              listIndex={listIndex}
+              global={global}
+              move={move}
+              status={status}
+            />
           ))}
         </div>
       )}

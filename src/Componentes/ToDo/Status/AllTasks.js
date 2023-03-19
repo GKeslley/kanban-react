@@ -2,6 +2,8 @@ import React from 'react';
 import Todo from './Todo';
 
 const AllTasks = () => {
+  const allStatus = ['todo', 'doing', 'done'];
+
   return (
     <ul
       style={{
@@ -11,20 +13,12 @@ const AllTasks = () => {
       }}
       className="container"
     >
-      <li className="flexColumn">
-        <p>TODO</p>
-        <Todo status="todo" />
-      </li>
-
-      <li className="flexColumn">
-        <p>DOING</p>
-        <Todo status="doing" />
-      </li>
-
-      <li className="flexColumn">
-        <p>DONE</p>
-        <Todo status="done" />
-      </li>
+      {allStatus.map((status, index) => (
+        <li key={status} className="flexColumn">
+          <p>{status.toLocaleUpperCase()}</p>
+          <Todo status={status} listIndex={index} />
+        </li>
+      ))}
     </ul>
   );
 };

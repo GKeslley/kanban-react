@@ -5,6 +5,9 @@ import Task from './Componentes/ToDo/Task';
 import ToDo from './Componentes/ToDo/ToDo';
 import useOutsideClick from './Hooks/useOutsideClick';
 
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
 const App = () => {
   const [isVisible, setIsVisible] = React.useState(false);
 
@@ -14,7 +17,7 @@ const App = () => {
   useOutsideClick(refTask, handleOutsideClick);
 
   return (
-    <>
+    <DndProvider backend={HTML5Backend}>
       <section style={{ display: 'grid', gridTemplateRows: '0.1fr 1fr' }}>
         <Header openTask={setIsVisible} />
 
@@ -34,7 +37,7 @@ const App = () => {
           </div>
         </article>
       )}
-    </>
+    </DndProvider>
   );
 };
 

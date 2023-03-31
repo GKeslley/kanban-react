@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from './Componentes/Header';
 import Sidebar from './Componentes/Sidebar';
-import Task from './Componentes/ToDo/Task';
-import ToDo from './Componentes/ToDo/ToDo';
+import CreateCard from './Componentes/Card/CreateCard';
+import Content from './Componentes/Content';
 import useOutsideClick from './Hooks/useOutsideClick';
 
 import { DndProvider } from 'react-dnd';
@@ -22,7 +22,7 @@ const App = () => {
         <Header openTask={setIsVisible} />
 
         <main className="todo" style={{ padding: '1.2rem 0' }}>
-          <ToDo />
+          <Content />
         </main>
       </section>
 
@@ -33,7 +33,7 @@ const App = () => {
       {isVisible && (
         <article className="taskBackground">
           <div ref={refTask} className="taskForm">
-            <Task setIsVisible={setIsVisible} />
+            <CreateCard setIsVisible={setIsVisible} />
           </div>
         </article>
       )}

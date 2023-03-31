@@ -1,7 +1,7 @@
 import React from 'react';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 
-const Task = ({ setIsVisible }) => {
+const CreateCard = ({ setIsVisible }) => {
   const [id, setId] = React.useState(3);
 
   const [dados, setDados] = React.useState({
@@ -171,4 +171,4 @@ const Task = ({ setIsVisible }) => {
   );
 };
 
-export default Task;
+export default CreateCard;

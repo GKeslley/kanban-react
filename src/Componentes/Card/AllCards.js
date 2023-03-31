@@ -1,9 +1,9 @@
 import React from 'react';
-import GlobalContext from '../../../Hooks/UseContext';
+import GlobalContext from '../../Hooks/UseContext';
 import { produce } from 'immer';
-import Card from '../Card';
+import Card from './Card';
 
-const Todo = ({ status, listIndex }) => {
+const AllCards = ({ status, listIndex }) => {
   const global = React.useContext(GlobalContext);
   const [list, setList] = React.useState(false);
 
@@ -47,4 +47,4 @@ const Todo = ({ status, listIndex }) => {
   );
 };
 
-export default Todo;
+export default AllCards;

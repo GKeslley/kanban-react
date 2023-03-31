@@ -1,9 +1,9 @@
 import React from 'react';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 import useOutsideClick from '../../Hooks/useOutsideClick';
-import DeleteTask from './DeleteTask';
+import DeleteCard from './DeleteCard';
 
-const ShowTodo = ({ showDados, isVisible, setVisible }) => {
+const ShowCard = ({ showDados, isVisible, setVisible }) => {
   const { id, dados, subtasks } = showDados;
   const [, setInStorage] = useLocalStorage('');
 
@@ -95,7 +95,7 @@ const ShowTodo = ({ showDados, isVisible, setVisible }) => {
                 <div className="flex-between">
                   <p>{dados.title}</p>
 
-                  <DeleteTask
+                  <DeleteCard
                     targetTask={targetTask}
                     setModified={setModified}
                     status={dados.status}
@@ -145,4 +145,4 @@ const ShowTodo = ({ showDados, isVisible, setVisible }) => {
     );
   }
 };
-export default ShowTodo;
+export default ShowCard;

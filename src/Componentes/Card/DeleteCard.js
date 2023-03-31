@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DeleteTask = ({ targetTask, setModified, status, setVisible }) => {
+const DeleteCard = ({ targetTask, setModified, status, setVisible }) => {
   const [openDropdown, setOpenDropdown] = React.useState(false);
 
   const handleDelet = () => {
@@ -47,4 +47,4 @@ const DeleteTask = ({ targetTask, setModified, status, setVisible }) => {
   );
 };
 
-export default DeleteTask;
+export default DeleteCard;

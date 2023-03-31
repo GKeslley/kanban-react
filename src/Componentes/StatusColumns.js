@@ -1,7 +1,7 @@
 import React from 'react';
-import Todo from './Todo';
+import AllCards from './Card/AllCards';
 
-const AllTasks = () => {
+const StatusColumns = () => {
   const allStatus = ['todo', 'doing', 'done'];
 
   return (
@@ -16,11 +16,11 @@ const AllTasks = () => {
       {allStatus.map((status, index) => (
         <li key={status} className="flexColumn">
           <p>{status.toLocaleUpperCase()}</p>
-          <Todo status={status} listIndex={index} />
+          <AllCards status={status} listIndex={index} />
         </li>
       ))}
     </ul>
   );
 };
 
-export default AllTasks;
+export default StatusColumns;

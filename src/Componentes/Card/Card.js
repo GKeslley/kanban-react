@@ -43,6 +43,7 @@ const Card = ({ card, global, index, listIndex, move, list }) => {
   });
 
   dragRef(dropRef(ref));
+
   return (
     <div>
       <div

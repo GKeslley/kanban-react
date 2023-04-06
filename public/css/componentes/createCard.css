@@ -51,6 +51,11 @@
   position: relative;
 }
 
+.btnCreateTask {
+  background-color: #7b4ef7 !important;
+  color: #fff !important;
+}
+
 .cross-1px {
   margin: 0;
   padding: 0;

@@ -1,6 +1,7 @@
 import React from 'react';
 import useMobile from '../Hooks/useMobile';
 import AllCards from './Card/AllCards';
+import Select from './FormComponents/Select';
 
 function renderCards(statusList, selectedStatus) {
   if (!selectedStatus) {
@@ -42,11 +43,12 @@ const StatusColumns = () => {
   }, [verifyIsMobile]);
 
   const isMobile = (
-    <select id="selectMobile" onChange={({ target }) => setMobileCard(target.value)}>
-      {allStatus.map((st) => (
-        <option key={st}>{st}</option>
-      ))}
-    </select>
+    <Select
+      options={allStatus}
+      value={mobileCard}
+      id="selectMobile"
+      onChange={({ target }) => setMobileCard(target.value)}
+    />
   );
 
   return (

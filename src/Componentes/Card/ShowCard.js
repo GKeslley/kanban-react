@@ -1,6 +1,7 @@
 import React from 'react';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 import useOutsideClick from '../../Hooks/useOutsideClick';
+import Select from '../FormComponents/Select';
 import DeleteCard from './DeleteCard';
 
 const ShowCard = ({ showDados, isVisible, setVisible }) => {
@@ -8,7 +9,7 @@ const ShowCard = ({ showDados, isVisible, setVisible }) => {
   const [, setInStorage] = useLocalStorage('');
 
   const [modified, setModified] = React.useState(false);
-  const [updateDados, setUpdateDados] = React.useState(null);
+  const [updateDados, setUpdateDados] = React.useState(undefined);
   const [updateTask, setUpdateTask] = React.useState({});
   const targetTask = React.useRef();
 
@@ -80,6 +81,7 @@ const ShowCard = ({ showDados, isVisible, setVisible }) => {
     setUpdateTask({});
     setUpdateDados(null);
   }
+
   if (subtasks) {
     const valuesSubtasks = Object.values(subtasks);
     const keysSubtasks = Object.keys(subtasks);
@@ -88,8 +90,8 @@ const ShowCard = ({ showDados, isVisible, setVisible }) => {
 
     return (
       <>
-        <article>
-          {dados && isVisible && (
+        {dados && isVisible && (
+          <article>
             <div className="taskBackground">
               <div ref={targetTask} className="card viewCard bg-modal-center " id={id}>
                 <div className="flex-between">
@@ -106,41 +108,36 @@ const ShowCard = ({ showDados, isVisible, setVisible }) => {
                 <p>{dados.description}</p>
 
                 <form action="">
-                  {valuesSubtasks.length
-                    ? valuesSubtasks.map(({ value, mark }, i) => (
-                        <label key={keysSubtasks[i]}>
-                          <input
-                            onChange={selectSubtasks}
-                            type="checkbox"
-                            id={keysSubtasks[i]}
-                            value={value}
-                            checked={mark}
-                          />
-                          <span className="styleBox"></span>
-                          {value}
-                        </label>
-                      ))
-                    : ''}
-                </form>
-
-                <form action="">
-                  <select
-                    id="taskSelect"
-                    onChange={({ target }) => changeStatus(target, { dados })}
-                  >
-                    <option value={dados.status}>{dados.status}</option>
-
-                    {allStatus.map((status) => (
-                      <option key={status} value={status}>
-                        {status}
-                      </option>
+                  {valuesSubtasks.length &&
+                    valuesSubtasks.map(({ value, mark }, i) => (
+                      <label key={keysSubtasks[i]}>
+                        <input
+                          onChange={selectSubtasks}
+                          type="checkbox"
+                          id={keysSubtasks[i]}
+                          value={value}
+                          checked={mark}
+                        />
+                        <span className="styleBox"></span>
+                        {value}
+                      </label>
                     ))}
-                  </select>
                 </form>
+
+                <Select
+                  options={allStatus}
+                  id="taskSelect"
+                  value={updateDados && updateDados.status}
+                  onChange={({ target }) => changeStatus(target, { dados })}
+                >
+                  <option value={dados.status}>
+                    {dados.status[0].toUpperCase() + dados.status.slice(1)}
+                  </option>
+                </Select>
               </div>
             </div>
-          )}
-        </article>
+          </article>
+        )}
       </>
     );
   }

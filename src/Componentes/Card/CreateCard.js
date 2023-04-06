@@ -1,5 +1,8 @@
 import React from 'react';
 import useLocalStorage from '../../Hooks/useLocalStorage';
+import Button from '../Button';
+import Input from '../FormComponents/Input';
+import Select from '../FormComponents/Select';
 
 const CreateCard = ({ setIsVisible }) => {
   const [id, setId] = React.useState(3);
@@ -86,8 +89,6 @@ const CreateCard = ({ setIsVisible }) => {
     setIsVisible(false);
   };
 
-  console.log(splitSubtasks);
-
   return (
     <>
       <h3>Add New Task</h3>
@@ -95,11 +96,11 @@ const CreateCard = ({ setIsVisible }) => {
       <form action="">
         <div>
           <label htmlFor="title">Title</label>
-          <input
-            onChange={handleChange}
+          <Input
             type="text"
-            id="title"
             value={dados.title}
+            name="title"
+            onChange={handleChange}
             placeholder="Buy steaks tomorrow at the market"
             required
           />
@@ -119,53 +120,53 @@ const CreateCard = ({ setIsVisible }) => {
         <div>
           <label htmlFor="sub1">Subtasks</label>
           <ul className="subtasks">
-            {splitSubtasks.length
-              ? splitSubtasks.map((obj, i) => {
-                  const nameSubtask = Object.keys(obj)[0];
+            {splitSubtasks.length &&
+              splitSubtasks.map((obj, i) => {
+                const nameSubtask = Object.keys(obj)[0];
 
-                  return (
-                    <li key={nameSubtask}>
-                      <input
-                        onChange={subtasksChange}
-                        type="text"
-                        value={subtask.subtasks[nameSubtask]['value']}
-                        id={nameSubtask}
-                        placeholder={nameSubtask === 'sub1' ? 'Buy salt' : ''}
-                      />
+                return (
+                  <li key={nameSubtask}>
+                    <Input
+                      type="text"
+                      value={subtask.subtasks[nameSubtask]['value']}
+                      name={nameSubtask}
+                      onChange={subtasksChange}
+                      placeholder={nameSubtask === 'sub1' ? 'Buy salt' : ''}
+                    />
 
-                      <span
-                        className="cross-1px ignore-click-outside"
-                        onClick={deletSubtask}
-                      ></span>
-                    </li>
-                  );
-                })
-              : ''}
+                    <span
+                      className="cross-1px ignore-click-outside"
+                      onClick={deletSubtask}
+                    ></span>
+                  </li>
+                );
+              })}
           </ul>
 
-          <button onClick={addSubtask}>+Add new subtask</button>
+          <Button type="button" className="btnAddSubtask" onClick={addSubtask}>
+            +Add new subtask
+          </Button>
         </div>
 
         <div>
           <label htmlFor="status">Status</label>
-          <select onChange={handleChange} value={dados.status} name="status" id="status">
-            <option value="" disabled>
-              Select
-            </option>
-            <option value="todo">Todo</option>
-            <option value="doing">Doing</option>
-            <option value="done">Done</option>
-          </select>
+          <Select
+            options={['todo', 'doing', 'done']}
+            id="status"
+            value={dados.status}
+            onChange={handleChange}
+            firstOptionDisabled={true}
+          />
         </div>
 
-        <button
+        <Button
           type="button"
-          disabled={dados.title && dados.status ? false : true}
+          className="btnCreateTask"
           onClick={sendTask}
-          style={{ background: '#7b4ef7', color: '#fff' }}
+          disabled={dados.title && dados.status ? false : true}
         >
           Create Task
-        </button>
+        </Button>
       </form>
     </>
   );

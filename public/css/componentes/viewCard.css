@@ -7,7 +7,7 @@
   z-index: 200000;
 }
 
-.viewCard form {
+.viewCard label {
   gap: 0.4em 0;
 }
 
@@ -90,7 +90,7 @@
   border: 2px solid #333;
   z-index: 200;
   top: 56px;
-  right: 41px;
+  right: 32px;
   cursor: pointer;
 }
 

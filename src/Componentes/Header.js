@@ -1,5 +1,6 @@
 import React from 'react';
 import useOutsideClick from '../Hooks/useOutsideClick';
+import Button from './Button';
 
 const Header = ({ openTask, refSidebar }) => {
   const [openMenuHamburguer, setMenuHamburguer] = React.useState(false);
@@ -32,9 +33,13 @@ const Header = ({ openTask, refSidebar }) => {
           </span>
           <h2>Laucher</h2>
         </div>
-        <button onClick={handleClick} className="AddTask ignore-click-outside">
+        <Button
+          type="button"
+          className="AddTask ignore-click-outside"
+          onClick={handleClick}
+        >
           +Add new task
-        </button>
+        </Button>
       </div>
     </header>
   );

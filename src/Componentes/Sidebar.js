@@ -1,25 +1,20 @@
 import React from 'react';
+import styles from './Css/Sidebar.module.css';
 
-const Sidebar = () => {
+const Sidebar = ({ refAside }) => {
   return (
-    <article style={{ paddingTop: '1.6em' }}>
-      <div className="container">
-        <h1 style={{ fontSize: '2rem' }}>kanban</h1>
-        <ul
-          style={{
-            padding: '2em 0em',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1em 0em',
-            fontSize: '1.2rem',
-          }}
-        >
-          <li className="btn">Launcher</li>
-          <li className="btn">Registre-se</li>
-          <li className="btn">Login</li>
-        </ul>
-      </div>
-    </article>
+    <aside className={`${styles.sidebar}`} ref={refAside}>
+      <article>
+        <div className="container">
+          <h1>kanban</h1>
+          <ul>
+            <li>Launcher</li>
+            <li>Registre-se</li>
+            <li>Login</li>
+          </ul>
+        </div>
+      </article>
+    </aside>
   );
 };
 

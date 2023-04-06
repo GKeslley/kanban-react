@@ -7,10 +7,17 @@ const capitalize = (str) => {
   return str[0].toUpperCase() + str.slice(1);
 };
 
-const Select = ({ options, id, value, onChange, firstOptionDisabled, children }) => {
-  console.log('aqq', value);
+const Select = ({
+  options,
+  id,
+  value,
+  onChange,
+  firstOptionDisabled,
+  children,
+  className,
+}) => {
   return (
-    <select id={id} name={id} value={value} onChange={onChange}>
+    <select id={id} name={id} value={value} onChange={onChange} className={className}>
       {firstOptionDisabled && (
         <option value="" disabled>
           Select

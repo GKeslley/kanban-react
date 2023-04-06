@@ -2,6 +2,7 @@ import React from 'react';
 import GlobalContext from '../../Hooks/UseContext';
 import { produce } from 'immer';
 import Card from './Card';
+import styles from '../Css/AllCards.module.css';
 
 const AllCards = ({ status, listIndex }) => {
   const global = React.useContext(GlobalContext);
@@ -28,7 +29,7 @@ const AllCards = ({ status, listIndex }) => {
   return (
     <>
       {dados[status].length && (
-        <div className="tasks-content">
+        <div className={styles['cards-content']}>
           {dados[status].map(({ id, dados, subtasks }, index) => (
             <Card
               key={id}

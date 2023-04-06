@@ -1,0 +1,4 @@
+.cards-content {
+  display: grid;
+  gap: 0.7em 0;
+}

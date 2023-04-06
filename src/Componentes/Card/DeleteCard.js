@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../Css/DeleteCard.module.css';
 
 const DeleteCard = ({ targetTask, setModified, status, setVisible }) => {
   const [openDropdown, setOpenDropdown] = React.useState(false);
@@ -34,14 +35,14 @@ const DeleteCard = ({ targetTask, setModified, status, setVisible }) => {
 
   return (
     <>
-      <div className="dots-bg" onClick={() => setOpenDropdown(!openDropdown)}>
-        <div className="dots"></div>
+      <div className={styles['dots-bg']} onClick={() => setOpenDropdown(!openDropdown)}>
+        <div className={styles.dots}></div>
       </div>
 
       {openDropdown && (
-        <article className="dropdown">
+        <div className={styles.dropdown}>
           <span onClick={handleDelet}>Delet task</span>
-        </article>
+        </div>
       )}
     </>
   );

@@ -1,0 +1,11 @@
+.main {
+  background-color: #22222c;
+  padding-top: 1.6rem;
+}
+
+@media (max-width: 800px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+  }
+}

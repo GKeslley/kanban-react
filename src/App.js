@@ -18,23 +18,16 @@ const App = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <section style={{ display: 'grid', gridTemplateRows: '0.1fr 1fr' }}>
+      <section>
         <Header openTask={setIsVisible} refSidebar={refSidebar} />
-
-        <main className="todo" style={{ padding: '1.2rem 0' }}>
-          <Content />
-        </main>
+        <Content />
       </section>
 
-      <aside className="sidebar" ref={refSidebar}>
-        <Sidebar />
-      </aside>
+      <Sidebar refAside={refSidebar} />
 
       {isVisible && (
-        <article className="taskBackground">
-          <div ref={refTask} className="taskForm bg-modal-center ">
-            <CreateCard setIsVisible={setIsVisible} />
-          </div>
+        <article className="bg-modal container">
+          <CreateCard setIsVisible={setIsVisible} refTask={refTask} />
         </article>
       )}
     </DndProvider>

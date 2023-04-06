@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+main {
+  background-color: #22222c;
+}
+
 body {
   display: grid;
   height: 100vh;
@@ -17,6 +21,11 @@ body {
 #root {
   display: grid;
   grid-template-columns: 0.3fr 1fr;
+}
+
+#root > section {
+  display: grid;
+  grid-template-rows: 0.1fr 1fr;
 }
 
 img {
@@ -50,6 +59,10 @@ select:focus {
 
 input::placeholder {
   color: rgb(110, 110, 110);
+}
+
+aside.active {
+  display: grid;
 }
 
 @media (max-width: 930px) {

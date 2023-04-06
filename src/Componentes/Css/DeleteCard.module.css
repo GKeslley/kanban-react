@@ -1,0 +1,53 @@
+.dots-bg {
+  display: flex;
+  padding: 8px 8px 16px 8px;
+  cursor: pointer;
+}
+
+.dots::before,
+.dots::after,
+.dots {
+  display: block;
+  height: 4px;
+  width: 4px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.dots::before {
+  content: '';
+  margin-top: 7px;
+}
+
+.dots::after {
+  content: '';
+  margin-top: 3px;
+}
+
+.dropdown {
+  position: absolute;
+  background: #e54;
+  border: 2px solid #333;
+  z-index: 200;
+  top: 56px;
+  right: 32px;
+  cursor: pointer;
+}
+
+.dropdown span {
+  font-size: 0.8rem;
+  padding: 0.2rem;
+}
+
+.dropdown::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -7px;
+  width: 0px;
+  height: 0px;
+  right: 0;
+  border-bottom: 7px solid #e54;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+}

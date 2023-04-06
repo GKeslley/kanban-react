@@ -3,8 +3,9 @@ import useLocalStorage from '../../Hooks/useLocalStorage';
 import Button from '../Button';
 import Input from '../FormComponents/Input';
 import Select from '../FormComponents/Select';
+import styles from '../Css/CreateCard.module.css';
 
-const CreateCard = ({ setIsVisible }) => {
+const CreateCard = ({ setIsVisible, refTask }) => {
   const [id, setId] = React.useState(3);
 
   const [dados, setDados] = React.useState({
@@ -91,83 +92,85 @@ const CreateCard = ({ setIsVisible }) => {
 
   return (
     <>
-      <h3>Add New Task</h3>
+      <div ref={refTask} className={`${styles.taskForm} modal`}>
+        <h3>Add New Task</h3>
 
-      <form action="">
-        <div>
-          <label htmlFor="title">Title</label>
-          <Input
-            type="text"
-            value={dados.title}
-            name="title"
-            onChange={handleChange}
-            placeholder="Buy steaks tomorrow at the market"
-            required
-          />
-        </div>
+        <form action="">
+          <div>
+            <label htmlFor="title">Title</label>
+            <Input
+              type="text"
+              value={dados.title}
+              name="title"
+              onChange={handleChange}
+              placeholder="Buy steaks tomorrow at the market"
+              required
+            />
+          </div>
 
-        <div>
-          <label htmlFor="description">Description</label>
-          <textarea
-            onChange={handleChange}
-            type="text"
-            value={dados.description}
-            id="description"
-            placeholder="Next week my friends will visit me"
-          />
-        </div>
+          <div>
+            <label htmlFor="description">Description</label>
+            <textarea
+              onChange={handleChange}
+              type="text"
+              value={dados.description}
+              id="description"
+              placeholder="Next week my friends will visit me"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="sub1">Subtasks</label>
-          <ul className="subtasks">
-            {splitSubtasks.length &&
-              splitSubtasks.map((obj, i) => {
-                const nameSubtask = Object.keys(obj)[0];
+          <div>
+            <label htmlFor="sub1">Subtasks</label>
+            <ul className={styles.subtasks}>
+              {splitSubtasks.length &&
+                splitSubtasks.map((obj, i) => {
+                  const nameSubtask = Object.keys(obj)[0];
 
-                return (
-                  <li key={nameSubtask}>
-                    <Input
-                      type="text"
-                      value={subtask.subtasks[nameSubtask]['value']}
-                      name={nameSubtask}
-                      onChange={subtasksChange}
-                      placeholder={nameSubtask === 'sub1' ? 'Buy salt' : ''}
-                    />
+                  return (
+                    <li key={nameSubtask}>
+                      <Input
+                        type="text"
+                        value={subtask.subtasks[nameSubtask]['value']}
+                        name={nameSubtask}
+                        onChange={subtasksChange}
+                        placeholder={nameSubtask === 'sub1' ? 'Buy salt' : ''}
+                      />
 
-                    <span
-                      className="cross-1px ignore-click-outside"
-                      onClick={deletSubtask}
-                    ></span>
-                  </li>
-                );
-              })}
-          </ul>
+                      <span
+                        className={`${styles['cross-1px']} ignore-click-outside`}
+                        onClick={deletSubtask}
+                      ></span>
+                    </li>
+                  );
+                })}
+            </ul>
 
-          <Button type="button" className="btnAddSubtask" onClick={addSubtask}>
-            +Add new subtask
+            <Button type="button" onClick={addSubtask}>
+              +Add new subtask
+            </Button>
+          </div>
+
+          <div>
+            <label htmlFor="status">Status</label>
+            <Select
+              options={['todo', 'doing', 'done']}
+              id="status"
+              value={dados.status}
+              onChange={handleChange}
+              firstOptionDisabled={true}
+            />
+          </div>
+
+          <Button
+            type="button"
+            className={styles.btnCreateTask}
+            onClick={sendTask}
+            disabled={dados.title && dados.status ? false : true}
+          >
+            Create Task
           </Button>
-        </div>
-
-        <div>
-          <label htmlFor="status">Status</label>
-          <Select
-            options={['todo', 'doing', 'done']}
-            id="status"
-            value={dados.status}
-            onChange={handleChange}
-            firstOptionDisabled={true}
-          />
-        </div>
-
-        <Button
-          type="button"
-          className="btnCreateTask"
-          onClick={sendTask}
-          disabled={dados.title && dados.status ? false : true}
-        >
-          Create Task
-        </Button>
-      </form>
+        </form>
+      </div>
     </>
   );
 };

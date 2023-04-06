@@ -2,6 +2,7 @@ import React from 'react';
 import useMobile from '../Hooks/useMobile';
 import AllCards from './Card/AllCards';
 import Select from './FormComponents/Select';
+import styles from './Css/StatusColumns.module.css';
 
 function renderCards(statusList, selectedStatus) {
   if (!selectedStatus) {
@@ -47,6 +48,7 @@ const StatusColumns = () => {
       options={allStatus}
       value={mobileCard}
       id="selectMobile"
+      className={styles.selectMobile}
       onChange={({ target }) => setMobileCard(target.value)}
     />
   );
@@ -55,7 +57,9 @@ const StatusColumns = () => {
     <>
       {isMobile}
 
-      <ul className="columns container">{renderCards(allStatus, mobileCard)}</ul>
+      <ul className={`${styles.columns} container`}>
+        {renderCards(allStatus, mobileCard)}
+      </ul>
     </>
   );
 };

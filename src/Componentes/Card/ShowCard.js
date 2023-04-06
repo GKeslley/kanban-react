@@ -3,6 +3,7 @@ import useLocalStorage from '../../Hooks/useLocalStorage';
 import useOutsideClick from '../../Hooks/useOutsideClick';
 import Select from '../FormComponents/Select';
 import DeleteCard from './DeleteCard';
+import styles from '../Css/ShowCard.module.css';
 
 const ShowCard = ({ showDados, isVisible, setVisible }) => {
   const { id, dados, subtasks } = showDados;
@@ -79,7 +80,7 @@ const ShowCard = ({ showDados, isVisible, setVisible }) => {
 
     setModified(false);
     setUpdateTask({});
-    setUpdateDados(null);
+    setUpdateDados(undefined);
   }
 
   if (subtasks) {
@@ -92,8 +93,8 @@ const ShowCard = ({ showDados, isVisible, setVisible }) => {
       <>
         {dados && isVisible && (
           <article>
-            <div className="taskBackground">
-              <div ref={targetTask} className="card viewCard bg-modal-center " id={id}>
+            <div className="bg-modal container">
+              <div ref={targetTask} className={`${styles.viewCard} modal`} id={id}>
                 <div className="flex-between">
                   <p>{dados.title}</p>
 
@@ -118,7 +119,7 @@ const ShowCard = ({ showDados, isVisible, setVisible }) => {
                           value={value}
                           checked={mark}
                         />
-                        <span className="styleBox"></span>
+                        <span className={styles.styleBox}></span>
                         {value}
                       </label>
                     ))}

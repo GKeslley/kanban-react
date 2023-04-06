@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDrag, useDrop } from 'react-dnd';
+import styles from '../Css/Card.module.css';
 
 const Card = ({ card, global, index, listIndex, move, list }) => {
   const { id, dados, subtasks } = card;
@@ -45,15 +46,15 @@ const Card = ({ card, global, index, listIndex, move, list }) => {
   dragRef(dropRef(ref));
 
   return (
-    <div className="task-item" data-drag={isDragging ? true : false}>
+    <div className={styles['card-item']} data-drag={isDragging ? true : false}>
       <div
-        className="task"
+        className={styles.card}
         onClick={() => handleClick({ id, dados, subtasks })}
         key={id}
         id={id}
         ref={ref}
       >
-        <span>{dados.title}</span>
+        <span className={styles.cardTitle}>{dados.title}</span>
         <span>
           {subtasks ? Object.values(subtasks).filter(({ mark }) => mark).length : 0} of{' '}
           {subtasks ? Object.values(subtasks).filter(({ value }) => value).length : 0}{' '}

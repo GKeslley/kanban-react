@@ -45,7 +45,7 @@ const Card = ({ card, global, index, listIndex, move, list }) => {
   dragRef(dropRef(ref));
 
   return (
-    <div>
+    <div className="task-item" data-drag={isDragging ? true : false}>
       <div
         className="task"
         onClick={() => handleClick({ id, dados, subtasks })}

@@ -91,7 +91,7 @@ const ShowCard = ({ showDados, isVisible, setVisible }) => {
         <article>
           {dados && isVisible && (
             <div className="taskBackground">
-              <div ref={targetTask} className="taskForm viewTask" id={id}>
+              <div ref={targetTask} className="card viewCard bg-modal-center " id={id}>
                 <div className="flex-between">
                   <p>{dados.title}</p>
 

@@ -6,7 +6,6 @@ import Card from './Card';
 const AllCards = ({ status, listIndex }) => {
   const global = React.useContext(GlobalContext);
   const [list, setList] = React.useState(false);
-
   const dados = { [status]: JSON.parse(localStorage.getItem(status)) };
 
   const move = (from, to, statusTargetMove) => {

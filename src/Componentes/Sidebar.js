@@ -2,7 +2,7 @@ import React from 'react';
 
 const Sidebar = () => {
   return (
-    <article style={{ paddingTop: '1.2em' }}>
+    <article style={{ paddingTop: '1.6em' }}>
       <div className="container">
         <h1 style={{ fontSize: '2rem' }}>kanban</h1>
         <ul
@@ -23,4 +23,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default React.memo(Sidebar);

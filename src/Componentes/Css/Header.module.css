@@ -17,3 +17,10 @@
 .addTask:hover {
   background: #5b25f1;
 }
+
+.menu {
+  display: flex;
+  align-items: center;
+}
+
+@import './MenuHamburguer.module.css';

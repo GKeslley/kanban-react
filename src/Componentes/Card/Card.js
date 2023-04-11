@@ -46,14 +46,13 @@ const Card = ({ card, global, index, listIndex, move, list }) => {
   dragRef(dropRef(ref));
 
   return (
-    <div className={styles['card-item']} data-drag={isDragging ? true : false}>
-      <div
-        className={styles.card}
-        onClick={() => handleClick({ id, dados, subtasks })}
-        key={id}
-        id={id}
-        ref={ref}
-      >
+    <div
+      className={styles['card-item']}
+      data-drag={isDragging ? true : false}
+      onClick={() => handleClick({ id, dados, subtasks })}
+      ref={ref}
+    >
+      <div className={styles.card} key={id} id={id}>
         <span className={styles.cardTitle}>{dados.title}</span>
         <span>
           {subtasks ? Object.values(subtasks).filter(({ mark }) => mark).length : 0} of{' '}

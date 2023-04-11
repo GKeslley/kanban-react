@@ -8,14 +8,14 @@ function renderCards(statusList, selectedStatus) {
   if (!selectedStatus) {
     return statusList.map((status, index) => (
       <li key={status} className="flexColumn">
-        <p>{status.toLocaleUpperCase()}</p>
+        <p className={styles[status]}>{status.toLocaleUpperCase()}</p>
         <AllCards status={status} listIndex={index} />
       </li>
     ));
   } else {
     return (
       <li className="flexColumn">
-        <p>{selectedStatus.toLocaleUpperCase()}</p>
+        <p className={styles[selectedStatus]}>{selectedStatus.toLocaleUpperCase()}</p>
         <AllCards status={selectedStatus} listIndex={0} />
       </li>
     );

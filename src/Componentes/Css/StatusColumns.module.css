@@ -12,30 +12,35 @@
 
 .columns > li p::before {
   content: '';
-  width: 1.1em;
-  height: 1.1em;
+  width: 1.1rem;
+  height: 1.1rem;
   border-radius: 50%;
   display: inline-block;
-  margin-right: 0.4em;
+  margin-right: 0.4rem;
 }
 
-.columns > li:first-child p:before {
+.columns > li .todo::before {
   background: #037ba0;
 }
 
-.columns > li:nth-child(2) p:before {
+.columns > li .doing::before {
   background: #7204f0;
 }
 
-.columns > li:last-child p:before {
+.columns > li .done::before {
   background: #028513;
 }
 
 .columns > li p {
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
 }
 
 .selectMobile {
+  margin-right: 1.2rem;
+  padding: 0.2rem 1rem;
+  border-radius: 15px;
+  background: #fff;
+  color: #7204f0;
   display: none;
 }
 

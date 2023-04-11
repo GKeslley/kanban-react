@@ -2,6 +2,7 @@ import React from 'react';
 import useOutsideClick from '../Hooks/useOutsideClick';
 import Button from './Button';
 import styles from './Css/Header.module.css';
+import MenuHamburguer from './MenuHamburguer';
 
 const Header = ({ openTask, refSidebar }) => {
   const [openMenuHamburguer, setMenuHamburguer] = React.useState(false);
@@ -23,10 +24,8 @@ const Header = ({ openTask, refSidebar }) => {
   return (
     <header className={styles.header}>
       <div className="flex-between container">
-        <div>
-          <span className="ignore-click-outside" onClick={openMenu}>
-            O
-          </span>
+        <div className={styles.menu}>
+          <MenuHamburguer openMenu={openMenu} openMenuHamburguer={openMenuHamburguer} />
           <h2>Laucher</h2>
         </div>
 

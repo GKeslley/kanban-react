@@ -3,10 +3,13 @@ import { GlobalContext } from '../../Hooks/UseContext';
 import { produce } from 'immer';
 import Card from './Card';
 import styles from '../Css/AllCards.module.css';
+import useLocalStorage from '../../Hooks/useLocalStorage';
 
 const AllCards = ({ status, listIndex }) => {
   const global = React.useContext(GlobalContext);
   const [list, setList] = React.useState(false);
+  const { updateStorageItem } = useLocalStorage();
+
   const dados = { [status]: JSON.parse(localStorage.getItem(status)) };
 
   const move = (from, to, statusTargetMove) => {
@@ -21,7 +24,7 @@ const AllCards = ({ status, listIndex }) => {
   };
 
   if (list) {
-    localStorage.setItem(status, JSON.stringify(list));
+    updateStorageItem(status, list);
     setList(false);
   }
 

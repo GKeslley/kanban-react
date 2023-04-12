@@ -1,8 +1,11 @@
 import React from 'react';
+import useLocalStorage from '../../Hooks/useLocalStorage';
 import styles from '../Css/DeleteCard.module.css';
 
 const DeleteCard = ({ targetTask, setModified, status, setVisible }) => {
   const [openDropdown, setOpenDropdown] = React.useState(false);
+
+  const { updateStorageItem } = useLocalStorage();
 
   const handleDelet = () => {
     const storage = localStorage.getItem(status);
@@ -22,7 +25,7 @@ const DeleteCard = ({ targetTask, setModified, status, setVisible }) => {
       });
 
       if (newElements.length) {
-        localStorage.setItem(status, JSON.stringify(newElements));
+        updateStorageItem(status, newElements);
       } else {
         localStorage.removeItem(status);
       }

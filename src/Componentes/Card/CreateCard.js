@@ -30,11 +30,7 @@ const CreateCard = ({ setIsVisible, refTask }) => {
     return { [nameSubtask]: subtask.subtasks[nameSubtask] };
   });
 
-  const [, setInStorage] = useLocalStorage('');
-
-  const handleSaveDados = (saveTask) => {
-    setInStorage(saveTask);
-  };
+  const { setStorageItem } = useLocalStorage();
 
   const addSubtask = (event) => {
     event.preventDefault();
@@ -66,11 +62,11 @@ const CreateCard = ({ setIsVisible, refTask }) => {
     }));
   };
 
-  const setGenerateId = (fullDados) => {
+  const setGenerateId = (allStatusData) => {
     const randomNumber = () => Math.floor(Math.random() * 1000);
-    for (let i = 0; i < fullDados.length; i++) {
+    for (let i = 0; i < allStatusData.length; i++) {
       let id = randomNumber();
-      const object = fullDados[i];
+      const object = allStatusData[i];
       while (object['id'] === id) {
         id = randomNumber();
       }
@@ -81,12 +77,16 @@ const CreateCard = ({ setIsVisible, refTask }) => {
   const sendTask = (event) => {
     event.preventDefault();
     const storageName = (name) => JSON.parse(localStorage.getItem(name));
-    let fullDados = [storageName('todo'), storageName('doing'), storageName('done')];
-    fullDados = fullDados.filter((element) => element);
-    const generateId = setGenerateId(fullDados);
-    const id = fullDados.length ? generateId : 1;
+    let allStatusData = [
+      storageName('todo'),
+      storageName('doing'),
+      storageName('done'),
+    ].filter((element) => element);
+    const generateId = setGenerateId(allStatusData);
+    const id = allStatusData.length ? generateId : 1;
     const task = { id, dados, ...subtask };
-    handleSaveDados(task);
+
+    setStorageItem(task.dados.status, task);
     setIsVisible(false);
   };
 
@@ -121,9 +121,9 @@ const CreateCard = ({ setIsVisible, refTask }) => {
 
           <div>
             <label htmlFor="sub1">Subtasks</label>
-            <ul className={styles.subtasks}>
-              {splitSubtasks.length &&
-                splitSubtasks.map((obj, i) => {
+            {splitSubtasks.length > 0 && (
+              <ul className={styles.subtasks}>
+                {splitSubtasks.map((obj, i) => {
                   const nameSubtask = Object.keys(obj)[0];
 
                   return (
@@ -143,7 +143,8 @@ const CreateCard = ({ setIsVisible, refTask }) => {
                     </li>
                   );
                 })}
-            </ul>
+              </ul>
+            )}
 
             <Button type="button" onClick={addSubtask}>
               +Add new subtask

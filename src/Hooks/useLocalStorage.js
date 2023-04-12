@@ -1,31 +1,20 @@
-import React from 'react';
+const useLocalStorage = () => {
+  const setStorageItem = (status, data) => {
+    try {
+      const lastElements = localStorage.getItem(status);
+      const newData = lastElements ? [...JSON.parse(lastElements), data] : [data];
 
-const useLocalStorage = (value) => {
-  // const [task, setTask] = React.useState();
-  const regex = /[[\]]/g;
-  const [storage, setStorage] = React.useState(() => {
-    if (value) {
-      const key = value.dados.status;
-      const keyStorage = localStorage.getItem(key);
-      return keyStorage ? JSON.parse(keyStorage) : value;
-    }
-  });
-
-  const setValue = (newValue) => {
-    setStorage(newValue);
-    const lastElements = localStorage.getItem(newValue.dados.status);
-    const keyValue = newValue.dados.status;
-    if (lastElements) {
-      localStorage.setItem(
-        keyValue,
-        `[${JSON.stringify(newValue)}, ${lastElements.replace(regex, '')}]`,
-      );
-    } else {
-      localStorage.setItem(keyValue, `[${JSON.stringify(newValue)}]`);
+      localStorage.setItem(status, JSON.stringify(newData));
+    } catch (error) {
+      console.log('Não foi possivel adicionar o item');
     }
   };
 
-  return [storage, setValue];
+  const updateStorageItem = (status, data) => {
+    localStorage.setItem(status, JSON.stringify(data));
+  };
+
+  return { setStorageItem, updateStorageItem };
 };
 
 export default useLocalStorage;

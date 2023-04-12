@@ -10,7 +10,7 @@ const ShowCard = () => {
   const { showDados, isVisible, setVisible } = React.useContext(GlobalContext);
 
   const { id, dados, subtasks } = showDados;
-  const [, setInStorage] = useLocalStorage('');
+  const { setStorageItem, updateStorageItem } = useLocalStorage();
 
   const [modified, setModified] = React.useState(false);
   const [updateDados, setUpdateDados] = React.useState(undefined);
@@ -26,10 +26,6 @@ const ShowCard = () => {
   };
 
   useOutsideClick(targetTask, handleOutsideClick);
-
-  const handleSaveDados = (saveTask) => {
-    setInStorage(saveTask);
-  };
 
   const selectSubtasks = ({ target }) => {
     if (target.checked) subtasks[target.id].mark = true;
@@ -48,13 +44,12 @@ const ShowCard = () => {
   };
 
   const relocateElement = (parseElements, removeElement, dados) => {
-    console.log('AQ TBMMM');
     parseElements.splice(removeElement, 1);
-    handleSaveDados(updateTask);
+    setStorageItem(updateTask.dados.status, updateTask);
 
     localStorage.removeItem(dados.status);
     if (parseElements.length) {
-      localStorage.setItem(dados.status, JSON.stringify(parseElements));
+      updateStorageItem(dados.status, parseElements);
     }
   };
 
@@ -62,7 +57,7 @@ const ShowCard = () => {
     const allData = { id, dados, subtasks };
 
     parseElements.splice(removeElement, 1, allData);
-    localStorage.setItem(dados.status, JSON.stringify(parseElements));
+    updateStorageItem(dados.status, parseElements);
   };
 
   if (!isVisible && modified && dados && dados.status) {
@@ -77,7 +72,6 @@ const ShowCard = () => {
         relocateElement(parseElements, removeElement, dados);
       } else if (removeElement >= 0) {
         editOptions(parseElements, removeElement);
-        console.log('AQQQ');
       }
     }
 

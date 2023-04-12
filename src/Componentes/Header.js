@@ -19,8 +19,6 @@ const Header = ({ openTask, refSidebar }) => {
   }
   useOutsideClick(refSidebar, closeMenu);
 
-  console.log(openMenuHamburguer);
-
   return (
     <header className={styles.header}>
       <div className="flex-between container">

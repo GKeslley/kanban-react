@@ -1,5 +1,5 @@
 import React from 'react';
-import GlobalContext from '../../Hooks/UseContext';
+import { GlobalContext } from '../../Hooks/UseContext';
 import { produce } from 'immer';
 import Card from './Card';
 import styles from '../Css/AllCards.module.css';

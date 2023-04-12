@@ -4,8 +4,11 @@ import useOutsideClick from '../../Hooks/useOutsideClick';
 import Select from '../FormComponents/Select';
 import DeleteCard from './DeleteCard';
 import styles from '../Css/ShowCard.module.css';
+import { GlobalContext } from '../../Hooks/UseContext';
 
-const ShowCard = ({ showDados, isVisible, setVisible }) => {
+const ShowCard = () => {
+  const { showDados, isVisible, setVisible } = React.useContext(GlobalContext);
+
   const { id, dados, subtasks } = showDados;
   const [, setInStorage] = useLocalStorage('');
 
@@ -84,7 +87,7 @@ const ShowCard = ({ showDados, isVisible, setVisible }) => {
   }
 
   if (subtasks) {
-    const valuesSubtasks = Object.values(subtasks);
+    const valuesSubtasks = Object.values(subtasks).filter(({ value }) => value);
     const keysSubtasks = Object.keys(subtasks);
 
     allStatus.splice(allStatus.indexOf(dados.status), 1);
@@ -108,9 +111,9 @@ const ShowCard = ({ showDados, isVisible, setVisible }) => {
 
                 <p>{dados.description}</p>
 
-                <form action="">
-                  {valuesSubtasks.length &&
-                    valuesSubtasks.map(({ value, mark }, i) => (
+                {valuesSubtasks.length > 0 && (
+                  <form>
+                    {valuesSubtasks.map(({ value, mark }, i) => (
                       <label key={keysSubtasks[i]}>
                         <input
                           onChange={selectSubtasks}
@@ -123,7 +126,8 @@ const ShowCard = ({ showDados, isVisible, setVisible }) => {
                         {value}
                       </label>
                     ))}
-                </form>
+                  </form>
+                )}
 
                 <Select
                   options={allStatus}

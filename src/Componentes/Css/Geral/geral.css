@@ -61,10 +61,6 @@ input::placeholder {
   color: rgb(110, 110, 110);
 }
 
-aside.active {
-  display: grid;
-}
-
 @media (max-width: 930px) {
   #root {
     grid-template-columns: 1fr;

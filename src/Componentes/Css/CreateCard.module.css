@@ -41,6 +41,7 @@
 
 .subtasks li {
   position: relative;
+  margin-right: 0.3rem;
 }
 
 .btnCreateTask {
@@ -80,4 +81,23 @@
 
 .cross-1px:after {
   transform: rotate(-45deg);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #7b4ef7;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f2f2f2;
+  border-radius: 5px;
 }

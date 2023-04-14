@@ -25,11 +25,7 @@ const App = () => {
 
       <Sidebar refAside={refSidebar} />
 
-      {isVisible && (
-        <article className="bg-modal container">
-          <CreateCard setIsVisible={setIsVisible} refTask={refTask} />
-        </article>
-      )}
+      {isVisible && <CreateCard setIsVisible={setIsVisible} refTask={refTask} />}
     </DndProvider>
   );
 };

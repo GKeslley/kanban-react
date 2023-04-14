@@ -4,6 +4,7 @@ import Button from '../Button';
 import Input from '../FormComponents/Input';
 import Select from '../FormComponents/Select';
 import styles from '../Css/CreateCard.module.css';
+import Close from '../Close';
 
 const CreateCard = ({ setIsVisible, refTask }) => {
   const [id, setId] = React.useState(3);
@@ -91,9 +92,12 @@ const CreateCard = ({ setIsVisible, refTask }) => {
   };
 
   return (
-    <>
+    <article className="bg-modal container">
       <div ref={refTask} className={`${styles.taskForm} modal`}>
-        <h3>Add New Task</h3>
+        <Close setIsVisible={setIsVisible} />
+        <div className="flex-between" style={{ alignItems: 'start' }}>
+          <h3>Add New Task</h3>
+        </div>
 
         <form action="">
           <div>
@@ -146,7 +150,7 @@ const CreateCard = ({ setIsVisible, refTask }) => {
               </ul>
             )}
 
-            <Button type="button" onClick={addSubtask}>
+            <Button type="button" onClick={addSubtask} className="styleBtn">
               +Add new subtask
             </Button>
           </div>
@@ -164,7 +168,7 @@ const CreateCard = ({ setIsVisible, refTask }) => {
 
           <Button
             type="button"
-            className={styles.btnCreateTask}
+            className={`styleBtn ${styles.btnCreateTask}`}
             onClick={sendTask}
             disabled={dados.title && dados.status ? false : true}
           >
@@ -172,7 +176,7 @@ const CreateCard = ({ setIsVisible, refTask }) => {
           </Button>
         </form>
       </div>
-    </>
+    </article>
   );
 };
 

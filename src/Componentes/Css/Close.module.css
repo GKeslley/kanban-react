@@ -1,0 +1,18 @@
+.closeTask {
+  width: auto;
+  position: absolute;
+  border-radius: 6px;
+  right: 0;
+  background: #c92d2deb;
+  color: #fff;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  top: 0;
+  font-size: 0.8rem;
+  border: none;
+  padding: 0.3rem 1rem;
+  margin-top: 0.5rem;
+  margin-right: 8px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}

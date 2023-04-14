@@ -29,6 +29,15 @@
   border-radius: 6px;
 }
 
+.sidebar:global(.active) {
+  display: grid;
+}
+
+.sidebar article {
+  padding-right: 1.2rem;
+  padding-left: 1.2rem;
+}
+
 @keyframes animation {
   to {
     transform: initial;

@@ -5,7 +5,6 @@ import styles from '../Css/AllCards.module.css';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 
 const AllCards = ({ status, listIndex, setShowDados, setVisible }) => {
-  console.log(setShowDados);
   const [list, setList] = React.useState(false);
   const { updateStorageItem } = useLocalStorage();
 

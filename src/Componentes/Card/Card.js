@@ -7,6 +7,7 @@ const Card = ({ card, index, listIndex, move, setShowDados, setVisible }) => {
   const ref = React.useRef();
 
   const handleClick = ({ id, dados, subtasks }) => {
+    console.log(setShowDados);
     setShowDados({ id, dados, subtasks });
     setTimeout(() => {
       setVisible(true);

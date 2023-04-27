@@ -21,7 +21,12 @@ function renderCards(statusList, selectedStatus, setShowDados, setVisible) {
     return (
       <li className="flexColumn">
         <p className={styles[selectedStatus]}>{selectedStatus.toLocaleUpperCase()}</p>
-        <AllCards status={selectedStatus} listIndex={0} />
+        <AllCards
+          status={selectedStatus}
+          listIndex={0}
+          setShowDados={setShowDados}
+          setVisible={setVisible}
+        />
       </li>
     );
   }

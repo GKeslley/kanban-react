@@ -4,12 +4,17 @@ import AllCards from './Card/AllCards';
 import Select from './FormComponents/Select';
 import styles from './Css/StatusColumns.module.css';
 
-function renderCards(statusList, selectedStatus) {
+function renderCards(statusList, selectedStatus, setShowDados, setVisible) {
   if (!selectedStatus) {
     return statusList.map((status, index) => (
       <li key={status} className="flexColumn">
         <p className={styles[status]}>{status.toLocaleUpperCase()}</p>
-        <AllCards status={status} listIndex={index} />
+        <AllCards
+          status={status}
+          listIndex={index}
+          setShowDados={setShowDados}
+          setVisible={setVisible}
+        />
       </li>
     ));
   } else {
@@ -22,7 +27,7 @@ function renderCards(statusList, selectedStatus) {
   }
 }
 
-const StatusColumns = () => {
+const StatusColumns = ({ setShowDados, setVisible }) => {
   const allStatus = ['todo', 'doing', 'done'];
   const verifyIsMobile = useMobile();
 
@@ -58,7 +63,7 @@ const StatusColumns = () => {
       {isMobile}
 
       <ul className={`${styles.columns} container`}>
-        {renderCards(allStatus, mobileCard)}
+        {renderCards(allStatus, mobileCard, setShowDados, setVisible)}
       </ul>
     </>
   );

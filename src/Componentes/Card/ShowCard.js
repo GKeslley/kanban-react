@@ -4,11 +4,8 @@ import useOutsideClick from '../../Hooks/useOutsideClick';
 import Select from '../FormComponents/Select';
 import DeleteCard from './DeleteCard';
 import styles from '../Css/ShowCard.module.css';
-import { GlobalContext } from '../../Hooks/UseContext';
 
-const ShowCard = () => {
-  const { showDados, isVisible, setVisible } = React.useContext(GlobalContext);
-
+const ShowCard = ({ showDados, isVisible, setVisible }) => {
   const { id, dados, subtasks } = showDados;
   const { setStorageItem, updateStorageItem } = useLocalStorage();
 

@@ -8,6 +8,10 @@
   max-width: 80vh !important;
 }
 
+.viewCard p {
+  line-break: anywhere;
+}
+
 .viewCard label {
   gap: 0.4em 0;
 }

@@ -4,7 +4,6 @@ import Sidebar from './Componentes/Sidebar';
 import CreateCard from './Componentes/Card/CreateCard';
 import Content from './Componentes/Content';
 import useOutsideClick from './Hooks/useOutsideClick';
-
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 

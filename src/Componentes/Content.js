@@ -1,16 +1,16 @@
 import React from 'react';
 import StatusColumns from './StatusColumns';
 import ShowCard from './Card/ShowCard';
-import { Context } from '../Hooks/UseContext';
 import styles from './Css/Content.module.css';
 
 const Content = () => {
+  const [showDados, setShowDados] = React.useState('');
+  const [isVisible, setVisible] = React.useState(false);
+
   return (
     <main className={styles.main}>
-      <Context>
-        <ShowCard />
-        <StatusColumns />
-      </Context>
+      <ShowCard showDados={showDados} isVisible={isVisible} setVisible={setVisible} />
+      <StatusColumns setShowDados={setShowDados} setVisible={setVisible} />
     </main>
   );
 };

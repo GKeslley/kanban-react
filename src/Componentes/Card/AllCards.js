@@ -1,12 +1,10 @@
 import React from 'react';
-import { GlobalContext } from '../../Hooks/UseContext';
 import { produce } from 'immer';
 import Card from './Card';
 import styles from '../Css/AllCards.module.css';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 
-const AllCards = ({ status, listIndex }) => {
-  const global = React.useContext(GlobalContext);
+const AllCards = ({ status, listIndex, setShowDados, setVisible }) => {
   const [list, setList] = React.useState(false);
   const { updateStorageItem } = useLocalStorage();
 
@@ -39,9 +37,9 @@ const AllCards = ({ status, listIndex }) => {
               card={{ dados, id, subtasks }}
               index={index}
               listIndex={listIndex}
-              global={global}
+              setShowDados={setShowDados}
+              setVisible={setVisible}
               move={move}
-              status={status}
             />
           ))}
         </div>

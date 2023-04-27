@@ -2,14 +2,14 @@ import React from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import styles from '../Css/Card.module.css';
 
-const Card = ({ card, global, index, listIndex, move, list }) => {
+const Card = ({ card, index, listIndex, move, setShowDados, setVisible }) => {
   const { id, dados, subtasks } = card;
   const ref = React.useRef();
 
   const handleClick = ({ id, dados, subtasks }) => {
-    global.setShowDados({ id, dados, subtasks });
+    setShowDados({ id, dados, subtasks });
     setTimeout(() => {
-      global.setVisible(true);
+      setVisible(true);
     }, 10);
   };
 
